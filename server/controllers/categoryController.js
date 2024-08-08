@@ -28,8 +28,6 @@ const deleteCategory = async (req, resp) => {
 };
 
 const updateCategory = async (req, resp) => {
-    console.log("req.params.id", req.params.id);
-    console.log("req.body", req.body);
   try {
     await Category.update(req.body, {
       where: { id: req.params.id },

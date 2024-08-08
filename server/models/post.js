@@ -11,12 +11,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "categoryId",
         as: "category",
       });
+      Post.hasMany(models.Comment, {
+        foreignKey: "postId", // The foreign key in the Comment model
+        as: "comments", // The alias to use when accessing the comments
+      });
     }
   }
   Post.init(
     {
       title: DataTypes.STRING,
-      body: DataTypes.STRING,
+      body: DataTypes.TEXT,
       userId: {
         type: DataTypes.INTEGER,
         references: {
