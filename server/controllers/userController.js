@@ -7,7 +7,6 @@ const jwtSecret = process.env.JWT_HASH;
 const expiresIn = process.env.JWT_EXPIRE_IN;
 
 const Register = async (req, resp) => {
-  console.log(req.body);
   try {
     const hash = await getHashedPassword(req.body.password);
     const body = { ...req.body, password: hash };
@@ -54,7 +53,7 @@ const genJwtToken = async (user) => {
   return jwtToken;
 };
 
-const verifyUserToken = (req, resp, next) => {
+const verifyUserToken = async(req, resp, next) => {
     let token = req.headers.authorization;
     if (!token)
       return resp.status(401).json({error: "Access Denied / Unauthorized request"});
@@ -64,15 +63,14 @@ const verifyUserToken = (req, resp, next) => {
         if (token === "null" || !token)
           return resp.status(401).send("Unauthorized request");
 
-        let verifiedUser = jwt.verify(token, jwtSecret); // config.TOKEN_SECRET => 'secretKey'
-        if (!verifiedUser) return res.status(401).send("Unauthorized request");
-
-        req.user = verifiedUser;
+        const verifiedUser = await jwt.verify(token, jwtSecret);
+        if (!verifiedUser) return resp.status(401).send("Unauthorized request");
+        req.user = verifiedUser
         next();
     } catch (error) {
         resp
         .status(401)
-        .json({ error: "Access Denied / Unauthorized request" });
+        .json({ error: error });
     }
 }
 
