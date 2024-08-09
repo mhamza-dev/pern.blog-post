@@ -21,6 +21,7 @@ const Register = async (req, resp) => {
 };
 
 const Login = async (req, resp) => {
+  console.log(req)
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
     const validPass = await bcrypt.compare(req.body.password, user.password);

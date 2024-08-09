@@ -9,8 +9,8 @@ const {
 } = require("../controllers/postController");
 const router = express.Router();
 
-router.get("/", verifyUserToken, getAllPosts);
-router.get("/:id", verifyUserToken, getPostById);
+router.get("/", getAllPosts);
+router.get("/:id", getPostById);
 router.post("/", verifyUserToken, createPost)
 router.delete("/:id", verifyUserToken, deletePost);
 router.put("/:id", verifyUserToken, updatePost);

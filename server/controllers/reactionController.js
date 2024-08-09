@@ -1,4 +1,4 @@
-import { Reaction } from "../models";
+const { Reaction } = require("../models");
 
 const listReactions = async (_req, resp) => {
   try {

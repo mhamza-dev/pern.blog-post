@@ -1,4 +1,4 @@
-import { UserReaction } from "../models";
+const { UserReaction } = require("../models");
 
 const listUserReactions = async (_req, resp) => {
   try {
