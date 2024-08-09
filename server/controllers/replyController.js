@@ -1,4 +1,4 @@
-import { Reply } from "../models";
+const { Reply } = require("../models");
 
 const listReplies = async (_req, resp) => {
   try {

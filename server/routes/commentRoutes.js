@@ -8,7 +8,7 @@ const {
   createComment,
   updateComment,
   deleteComment,
-} = require("../controllers/categoryController");
+} = require("../controllers/commentController");
 
 router.post("/", verifyUserToken, createComment);
 router.get("/", verifyUserToken, listComments);

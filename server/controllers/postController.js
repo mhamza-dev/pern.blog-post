@@ -1,4 +1,4 @@
-const { Post, User, Comment } = require("../models");
+const { Post, User, Comment, Category } = require("../models");
 
 const getAllPosts = async (_req, resp) => {
   try {
@@ -6,6 +6,7 @@ const getAllPosts = async (_req, resp) => {
       include: [
         { model: User, as: "user" },
         { model: Comment, as: "comments" },
+        { model: Category, as: "category" },
       ],
     });
     resp.status(200).json(posts);

@@ -1,4 +1,4 @@
-import { Comment } from "../models"
+const { Comment } = require("../models")
 
 const listComments = async (_req, resp) => {
   try {
