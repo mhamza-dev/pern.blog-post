@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { verifyUserToken } = require("../controllers/userController");
 const {
   listReplies,
   listRepliesByCommentId,
@@ -10,12 +11,12 @@ const {
   deleteReply,
 } = require("../controllers/replyController");
 
-router.post("/", createReply);
-router.get("/", listReplies);
-router.get("/:id", getReplyById);
-router.get("/comments/:commentId", listRepliesByCommentId);
-router.get("/users/:userId", listRepliesByUserId);
-router.delete("/:id", deleteReply);
-router.put("/:id", updateReply);
+router.post("/", verifyUserToken, createReply);
+router.get("/", verifyUserToken, listReplies);
+router.get("/:id", verifyUserToken, getReplyById);
+router.get("/comments/:commentId", verifyUserToken, listRepliesByCommentId);
+router.get("/users/:userId", verifyUserToken, listRepliesByUserId);
+router.delete("/:id", verifyUserToken, deleteReply);
+router.put("/:id", verifyUserToken, updateReply);
 
 module.exports = router
