@@ -15,6 +15,7 @@ const listUserReactionsByResource = async (req, resp) => {
       where: {
         resourceId: req.params.resourceId,
         resourceType: req.params.resourceType,
+        userId: req.user.data.Id,
       },
     });
     resp.status(200).json(userReactions);

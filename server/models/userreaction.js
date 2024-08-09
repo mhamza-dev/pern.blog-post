@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "reactionId",
         as: "reaction"
       })
+      UserReaction.belongsTo(models.User, {
+        foreignKey: "userId",
+        as: "user"
+      })
     }
   }
   UserReaction.init({

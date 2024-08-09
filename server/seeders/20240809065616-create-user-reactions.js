@@ -29,6 +29,7 @@ module.exports = {
         reourceType: resourceType,
         reourceId: resourceId,
         reactionId: Math.floor(Math.random() * 6) + 1,
+        userId: Math.floor(Math.random() * 3) + 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
