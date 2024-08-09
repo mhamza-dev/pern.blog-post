@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { verifyUserToken } = require("../controllers/userController");
 const {
   listUserReactions,
   listUserReactionsByResource,
@@ -9,11 +10,11 @@ const {
   deleteUserReaction,
 } = require("../controllers/userreactionController");
 
-router.post("/", createUserReaction);
-router.get("/", listUserReactions);
-router.get("/:resourceId/:resourceType", listUserReactionsByResource);
-router.get("/:id", getUserReactionById);
-router.delete("/:id", deleteUserReaction);
-router.put("/:id", updateUserReaction);
+router.post("/", verifyUserToken, createUserReaction);
+router.get("/", verifyUserToken, listUserReactions);
+router.get("/:resourceId/:resourceType", verifyUserToken, listUserReactionsByResource);
+router.get("/:id", verifyUserToken, getUserReactionById);
+router.delete("/:id", verifyUserToken, deleteUserReaction);
+router.put("/:id", verifyUserToken, updateUserReaction);
 
 module.exports = router
