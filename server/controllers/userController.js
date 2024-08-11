@@ -2,6 +2,7 @@ require("dotenv").config();
 const { User } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const blacklist = new Set(); 
 const saltRounds = 10;
 const jwtSecret = process.env.JWT_HASH;
 const expiresIn = process.env.JWT_EXPIRE_IN;
@@ -21,16 +22,19 @@ const Register = async (req, resp) => {
 };
 
 const Login = async (req, resp) => {
-  console.log(req)
   try {
     const user = await User.findOne({ where: { email: req.body.email } });
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if (validPass) {
       const jwtToken = await genJwtToken(user);
-      resp.status(200).header("auth-token", jwtToken).json({
-        message: "User has been loggedin successfully",
-        token: jwtToken,
-      });
+      resp
+        .status(200)
+        .header("auth-token", jwtToken)
+        .json({
+          message: "User has been loggedin successfully",
+          user: { id: user.id, email: user.email, username: user.username },
+          token: jwtToken,
+        });
     } else {
       resp.status(401).json({ error: "email or password is wrong" });
     }
@@ -38,6 +42,12 @@ const Login = async (req, resp) => {
     resp.status(500).json(err.message);
   }
 };
+
+const Logout = (req, res) => {
+ const token = req.header("auth-token");
+ blacklist.add(token); // Add token to the blacklist
+ res.status(200).json({ message: "Logged out successfully" });
+}
 
 const getHashedPassword = async (password) => {
   const salt = await bcrypt.genSalt(saltRounds);
@@ -54,25 +64,28 @@ const genJwtToken = async (user) => {
   return jwtToken;
 };
 
-const verifyUserToken = async(req, resp, next) => {
-    let token = req.headers.authorization;
-    if (!token)
-      return resp.status(401).json({error: "Access Denied / Unauthorized request"});
+const verifyUserToken = async (req, resp, next) => {
+  let token = req.headers.authorization;
+  if (!token)
+    return resp
+      .status(401)
+      .json({ error: "Access Denied / Unauthorized request" });
 
-    try {
-        token = token.split(" ")[1];
-        if (token === "null" || !token)
-          return resp.status(401).send("Unauthorized request");
+  if (blacklist.has(token)) {
+    return res.status(401).json({ message: "Token has been revoked" });
+  }
+  try {
+    token = token.split(" ")[1];
+    if (token === "null" || !token)
+      return resp.status(401).send("Unauthorized request");
 
-        const verifiedUser = await jwt.verify(token, jwtSecret);
-        if (!verifiedUser) return resp.status(401).send("Unauthorized request");
-        req.user = verifiedUser
-        next();
-    } catch (error) {
-        resp
-        .status(401)
-        .json({ error: error });
-    }
-}
+    const verifiedUser = await jwt.verify(token, jwtSecret);
+    if (!verifiedUser) return resp.status(401).send("Unauthorized request");
+    req.user = verifiedUser;
+    next();
+  } catch (error) {
+    resp.status(401).json({ error: error });
+  }
+};
 
-module.exports = { Register, Login, verifyUserToken };
+module.exports = { Register, Login, Logout, verifyUserToken };

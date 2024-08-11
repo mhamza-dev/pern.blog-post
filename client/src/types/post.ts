@@ -1,3 +1,4 @@
+import { userObject } from "../helperFunctions";
 import { Category } from "./category";
 
 export interface Post {
@@ -7,4 +8,5 @@ export interface Post {
   userId: number;
   category: Category;
   createdAt: Date;
+  user: userObject
 }

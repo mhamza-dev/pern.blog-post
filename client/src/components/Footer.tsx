@@ -7,14 +7,14 @@ const Footer = () => {
       <nav className="sm:ml-auto flex gap-4 sm:gap-6">
         <a
           className="text-xs hover:underline underline-offset-4"
-          href="#"
+          href="/"
           rel="ugc"
         >
           Terms of Service
         </a>
         <a
           className="text-xs hover:underline underline-offset-4"
-          href="#"
+          href="/"
           rel="ugc"
         >
           Privacy

@@ -5,8 +5,10 @@ import blogPost from "../assets/blogpost.png";
 import useListCategories from "../hooks/useListCategories";
 import { usePosts } from "../hooks/usePosts";
 import ErrorBoundary from "./ErrorBoundary";
-import usefetchSrcImg from "../hooks/useFetchImage";
+import {fetchImgByCategory} from "../helperFunctions";
 import { formatDate } from "../helperFunctions";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 const LandingPage = () => {
   const { posts, isLoading: isPostLoading, error: listPostError } = usePosts();
@@ -22,6 +24,7 @@ const LandingPage = () => {
   if (listPostError || listCategoryError) return <ErrorBoundary />;
   return (
     <main className="flex-1">
+      <Navbar />
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="px-4 md:px-6">
           <div className="grid gap-6 lg:gap-12 sm:grid-cols-1 lg:grid-cols-2">
@@ -94,8 +97,9 @@ const LandingPage = () => {
                     ) : (
                       categories.map((category) => (
                         <Link
+                          key={category.id}
                           className="flex items-center justify-between text-sm font-medium hover:text-black"
-                          to={`/categories/${category.id}/posts`}
+                          to={`/posts/categories/${category.id}`}
                           rel="ugc"
                         >
                           <span>{category.type}</span>
@@ -131,9 +135,9 @@ const LandingPage = () => {
                 <div className="p-6">
                   <div className="space-y-4">
                     {randomPosts.map((post) => (
-                      <div className="flex gap-4">
+                      <div className="flex gap-4" key={post.id}>
                         <img
-                          src={usefetchSrcImg(post.category.type)}
+                          src={fetchImgByCategory(post.category.type)}
                           width="80"
                           height="80"
                           alt="Blog Post"
@@ -156,6 +160,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
+      <Footer />
     </main>
   );
 };

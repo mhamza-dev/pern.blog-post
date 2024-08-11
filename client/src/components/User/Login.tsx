@@ -1,6 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import { ChangeEvent, FormEvent, Fragment, useState } from 'react'
 import { Link } from 'react-router-dom';
+import Navbar from '../Navbar';
+import Footer from '../Footer';
 
 const Login = () => {
   const [values, setValues] = useState({});
@@ -9,6 +11,7 @@ const Login = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
   const loginUser = (e: FormEvent) => {
+    console.log(values);
     e.preventDefault();
     axios
       .post("http://localhost:8080/users/login", values, {
@@ -16,7 +19,11 @@ const Login = () => {
       })
       .then((response) => {
         window.localStorage.setItem("auth-token", response.data.token);
-        window.location.href = "/users/login";
+        window.localStorage.setItem(
+          "user",
+          JSON.stringify(response.data.user)
+        );
+        window.location.href = "/";
       })
       .catch((error: AxiosError) => {
         setError(error.message);
@@ -27,6 +34,7 @@ const Login = () => {
   }
   return (
     <Fragment>
+      <Navbar />
       <div className="flex min-h-[86dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-md space-y-6">
           <div
@@ -56,6 +64,7 @@ const Login = () => {
                     id="email"
                     placeholder="m@example.com"
                     type="email"
+                    name='email'
                     required
                     onChange={(e) => handleValues(e)}
                   />
@@ -70,7 +79,7 @@ const Login = () => {
                     </label>
                     <a
                       className="text-sm font-medium underline underline-offset-4 hover:text-black"
-                      href="#"
+                      href="/"
                       rel="ugc"
                     >
                       Forgot password?
@@ -80,6 +89,7 @@ const Login = () => {
                     className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="password"
                     type="password"
+                    name='password'
                     required
                     onChange={(e) => handleValues(e)}
                   />
@@ -108,6 +118,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </Fragment>
   );
 }

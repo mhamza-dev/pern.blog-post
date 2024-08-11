@@ -1,11 +1,8 @@
 import axios, { AxiosError } from "axios";
 import { ChangeEvent, FormEvent, Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-
-interface Register {
-    message: string;
-    token: string;
-}
+import Footer from "../Footer";
+import Navbar from "../Navbar";
 
 const Register = () => {
   const [values, setValues] = useState({});
@@ -32,6 +29,7 @@ const Register = () => {
   }
   return (
     <Fragment>
+      <Navbar />
       <div className="flex min-h-[86dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-md space-y-6">
           <div
@@ -122,6 +120,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </Fragment>
   );
 };

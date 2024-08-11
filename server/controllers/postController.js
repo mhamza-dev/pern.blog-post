@@ -15,6 +15,22 @@ const getAllPosts = async (_req, resp) => {
   }
 };
 
+const getUserPosts = async (req, resp) => {
+  try {
+    const posts = await Post.findAll({
+      where: { userId: req.params.id},
+      include: [
+        { model: User, as: "user" },
+        { model: Comment, as: "comments" },
+        { model: Category, as: "category" },
+      ],
+    });
+    resp.status(200).json(posts);
+  } catch (error) {
+    resp.status(500).json({ error: error.message });
+  }
+};
+
 const getPostById = async (req, resp) => {
   try {
     const post = await Post.findByPk(req.params.id, {
@@ -50,7 +66,8 @@ const getPostByCategoryId = async (req, resp) => {
 
 const createPost = async (req, resp) => {
   try {
-    const post = await Post.create({ ...req.body, userId: req.user.data.id });
+    const body = { ...req.body, userId: req.user.data.id };
+    const post = await Post.create(body);
     resp.status(200).json(post);
   } catch (error) {
     resp.status(500).json({ error: error.message });
@@ -84,4 +101,5 @@ module.exports = {
   deletePost,
   updatePost,
   getPostByCategoryId,
+  getUserPosts,
 };
