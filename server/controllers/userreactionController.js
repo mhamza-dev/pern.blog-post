@@ -2,7 +2,9 @@ const { UserReaction } = require("../models");
 
 const listUserReactions = async (_req, resp) => {
   try {
-    const userReactions = await UserReaction.findAll();
+    const userReactions = await UserReaction.findAll({
+      order: [["createdAt", "DESC"]],
+    });
     resp.status(200).json(userReactions);
   } catch (error) {
     resp.status(500).json({ error: error });
@@ -15,8 +17,9 @@ const listUserReactionsByResource = async (req, resp) => {
       where: {
         resourceId: req.params.resourceId,
         resourceType: req.params.resourceType,
-        userId: req.user.data.Id,
       },
+      include: [{ model: Reaction, as: "reaction" }],
+      order: [["createdAt", "DESC"]],
     });
     resp.status(200).json(userReactions);
   } catch (error) {

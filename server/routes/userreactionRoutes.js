@@ -12,7 +12,7 @@ const {
 
 router.post("/", verifyUserToken, createUserReaction);
 router.get("/", verifyUserToken, listUserReactions);
-router.get("/:resourceId/:resourceType", verifyUserToken, listUserReactionsByResource);
+router.get("/:resourceId/:resourceType", listUserReactionsByResource);
 router.get("/:id", verifyUserToken, getUserReactionById);
 router.delete("/:id", verifyUserToken, deleteUserReaction);
 router.put("/:id", verifyUserToken, updateUserReaction);

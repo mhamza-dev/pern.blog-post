@@ -8,6 +8,24 @@ const getAllPosts = async (_req, resp) => {
         { model: Comment, as: "comments" },
         { model: Category, as: "category" },
       ],
+      order: [["createdAt", "DESC"]],
+    });
+    resp.status(200).json(posts);
+  } catch (error) {
+    resp.status(500).json({ error: error.message });
+  }
+};
+
+const getUserPosts = async (req, resp) => {
+  try {
+    const posts = await Post.findAll({
+      where: { userId: req.params.id },
+      include: [
+        { model: User, as: "user" },
+        { model: Comment, as: "comments" },
+        { model: Category, as: "category" },
+      ],
+      order: [["createdAt", "DESC"]],
     });
     resp.status(200).json(posts);
   } catch (error) {
@@ -40,6 +58,7 @@ const getPostByCategoryId = async (req, resp) => {
         { model: Comment, as: "comments" },
         { model: Category, as: "category" },
       ],
+      order: [["createdAt", "DESC"]],
     });
     if (!post) return resp.status(404).json({ message: "Post not found" });
     resp.status(200).json(post);
@@ -84,4 +103,5 @@ module.exports = {
   deletePost,
   updatePost,
   getPostByCategoryId,
+  getUserPosts,
 };

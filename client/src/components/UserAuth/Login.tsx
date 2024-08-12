@@ -36,7 +36,7 @@ const Login = () => {
             <div className="p-6 space-y-4 lg:min-w-[445px] lg:min-h-[425px]">
               <div className="space-y-2 text-center">
                 <h1 className="text-3xl font-bold">Welcome back</h1>
-                <p className="text-muted-foreground">
+                <p className="text-black">
                   Enter your email and password to log in
                 </p>
               </div>
@@ -52,7 +52,7 @@ const Login = () => {
                     Email
                   </label>
                   <input
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="email"
                     placeholder="m@example.com"
                     type="email"
@@ -77,7 +77,7 @@ const Login = () => {
                     </a>
                   </div>
                   <input
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="password"
                     type="password"
                     required
@@ -95,7 +95,7 @@ const Login = () => {
           </div>
           <div>
             <div className="flex items-center justify-center mt-6">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-black">
                 Don't have an account?
                 <Link
                   to="/users/register"

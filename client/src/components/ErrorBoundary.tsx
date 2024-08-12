@@ -26,7 +26,7 @@ const ErrorBoundary = () => {
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Oops, something went wrong!
           </h1>
-          <p className="mt-4 text-muted-foreground">
+          <p className="mt-4 text-black">
             We're sorry, but an unexpected error has occurred. Please try again
             later or contact support if the issue persists.
           </p>

@@ -6,7 +6,7 @@ import useListCategories from "../hooks/useListCategories";
 import { usePosts } from "../hooks/usePosts";
 import ErrorBoundary from "./ErrorBoundary";
 import usefetchSrcImg from "../hooks/useFetchImage";
-import { formatDate } from "../helperFunctions";
+import { fetchImgByCategory, formatDate } from "../helperFunctions";
 
 const LandingPage = () => {
   const { posts, isLoading: isPostLoading, error: listPostError } = usePosts();
@@ -30,14 +30,14 @@ const LandingPage = () => {
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                   Discover the Latest Trends in Tech
                 </h1>
-                <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                <p className="max-w-[600px] text-black md:text-xl">
                   Stay up-to-date with our blog, featuring in-depth articles and
                   insights from industry experts.
                 </p>
               </div>
               <Link
                 className="inline-flex h-10 items-center justify-center rounded-md bg-black px-8 text-sm font-medium text-white shadow transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                to="/posts"
+                to="/home/posts"
                 rel="ugc"
               >
                 View Blog Posts
@@ -61,7 +61,7 @@ const LandingPage = () => {
                 </h2>
                 <Link
                   className="text-sm font-medium text-black hover:underline underline-offset-4"
-                  to="/posts"
+                  to="/home/posts"
                   rel="ugc"
                 >
                   View All
@@ -72,7 +72,9 @@ const LandingPage = () => {
               ) : (
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {posts.slice(0, 9).map((post) => (
-                    <PostCard key={post.id} post={post} />
+                    <Link to={`/home/posts/${post.id}`}>
+                      <PostCard key={post.id} post={post} />
+                    </Link>
                   ))}
                 </div>
               )}
@@ -95,7 +97,7 @@ const LandingPage = () => {
                       categories.map((category) => (
                         <Link
                           className="flex items-center justify-between text-sm font-medium hover:text-black"
-                          to={`/categories/${category.id}/posts`}
+                          to={`/home/posts/categories/${category.id}`}
                           rel="ugc"
                         >
                           <span>{category.type}</span>
@@ -131,23 +133,25 @@ const LandingPage = () => {
                 <div className="p-6">
                   <div className="space-y-4">
                     {randomPosts.map((post) => (
-                      <div className="flex gap-4">
-                        <img
-                          src={usefetchSrcImg(post.category.type)}
-                          width="80"
-                          height="80"
-                          alt="Blog Post"
-                          className="overflow-hidden rounded-lg border"
-                        />
-                        <div className="space-y-1">
-                          <h4 className="text-sm font-medium truncate max-w-[100px]">
-                            {post.title}
-                          </h4>
-                          <p className="text-xs text-muted-foreground">
-                            {formatDate(post.createdAt)}
-                          </p>
+                      <Link to={`/home/posts/${post.id}`}>
+                        <div className="flex gap-4" key={post.id}>
+                          <img
+                            src={fetchImgByCategory(post.category.type)}
+                            width="80"
+                            height="80"
+                            alt="Blog Post"
+                            className="overflow-hidden rounded-lg border"
+                          />
+                          <div className="space-y-1">
+                            <h4 className="text-sm font-medium truncate max-w-[100px]">
+                              {post.title}
+                            </h4>
+                            <p className="text-xs text-black">
+                              {formatDate(post.createdAt)}
+                            </p>
+                          </div>
                         </div>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                 </div>

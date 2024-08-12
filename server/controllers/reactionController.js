@@ -2,7 +2,9 @@ const { Reaction } = require("../models");
 
 const listReactions = async (_req, resp) => {
   try {
-    const reactions = await Reaction.findAll();
+    const reactions = await Reaction.findAll({
+      order: [["createdAt", "DESC"]],
+    });
     resp.status(200).json(reactions);
   } catch (error) {
     resp.status(500).json({ error: error });

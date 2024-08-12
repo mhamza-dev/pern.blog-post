@@ -11,7 +11,9 @@ const createCategory = async (req, resp) => {
 
 const getAllCategory = async (_req, resp) => {
   try {
-    const cateogries = await Category.findAll();
+    const cateogries = await Category.findAll({
+      order: [["createdAt", "DESC"]],
+    });
     resp.status(200).json(cateogries);
   } catch (error) {
     resp.status(500).json({ error: error.message });

@@ -1,6 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { getSessionUser } from "../helperFunctions";
 
 const Navbar = () => {
+  const { pathname } = useLocation();
+  const userObject = getSessionUser();
+  const basicRoutes = [
+    { title: "Home", path: "/" },
+    { title: "About", path: "/" },
+    { title: "Contact", path: "/" },
+  ];
+  const fetchRoutes = () => {
+    switch (pathname) {
+      case "/":
+        return [
+          { title: "Login", path: "/users/login" },
+          ...basicRoutes.filter((route) => route.title !== "Home"),
+        ];
+
+      case "/users/login":
+        return [{ title: "Register", path: "/users/register" }, ...basicRoutes];
+
+      case "/users/register":
+        return [{ title: "Login", path: "/users/login" }, ...basicRoutes];
+
+      default:
+        return userObject === undefined
+          ? [{ title: "Login", path: "/users/login" }, ...basicRoutes]
+          : basicRoutes;
+    }
+  };
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center">
       <a className="flex items-center justify-center" href="#" rel="ugc">

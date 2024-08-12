@@ -2,7 +2,9 @@ const { Reply } = require("../models");
 
 const listReplies = async (_req, resp) => {
   try {
-    const replies = await Reply.findAll();
+    const replies = await Reply.findAll({
+      order: [["createdAt", "DESC"]],
+    });
     resp.status(200).json(replies);
   } catch (error) {
     resp.status(500).json({ error: error });
@@ -13,6 +15,7 @@ const listRepliesByCommentId = async (req, resp) => {
   try {
     const replies = await Reply.findAll({
       where: { commentId: req.params.commentId },
+      order: [["createdAt", "DESC"]],
     });
     resp.status(200).json(replies);
   } catch (error) {
@@ -24,6 +27,7 @@ const listRepliesByUserId = async (req, resp) => {
   try {
     const replies = await Reply.findAll({
       where: { userId: req.params.userId },
+      order: [["createdAt", "DESC"]],
     });
     resp.status(200).json(replies);
   } catch (error) {

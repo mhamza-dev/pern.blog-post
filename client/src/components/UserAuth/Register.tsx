@@ -41,7 +41,7 @@ const Register = () => {
             <div className="p-6 space-y-4 lg:min-w-[445px] lg:min-h-[435px]">
               <div className="space-y-2 text-center">
                 <h1 className="text-3xl font-bold">Blog Post</h1>
-                <p className="text-muted-foreground">
+                <p className="text-black">
                   Enter details to Sign up
                 </p>
               </div>
@@ -54,7 +54,7 @@ const Register = () => {
                     Username
                   </label>
                   <input
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="username"
                     placeholder="john-doe"
                     type="text"
@@ -71,7 +71,7 @@ const Register = () => {
                     Email
                   </label>
                   <input
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="email"
                     placeholder="m@example.com"
                     type="email"
@@ -90,7 +90,7 @@ const Register = () => {
                     </label>
                   </div>
                   <input
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     id="password"
                     type="password"
                     name="password"
@@ -109,7 +109,7 @@ const Register = () => {
           </div>
           <div>
             <div className="flex items-center justify-center mt-6">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-black">
                 Already have an account?
                 <Link
                   to="/users/login"

@@ -2,7 +2,9 @@ const { Comment } = require("../models")
 
 const listComments = async (_req, resp) => {
   try {
-    const comments = await Comment.findAll();
+    const comments = await Comment.findAll({
+      order: [["createdAt", "DESC"]],
+    });
     resp.status(200).json(comments);
   } catch (error) {
     resp.status(500).json({ error: error });
@@ -11,7 +13,10 @@ const listComments = async (_req, resp) => {
 
 const listCommentsByPostId = async (req, resp) => {
   try {
-    const comments = await Comment.findAll({where: {postId: req.params.id}});
+    const comments = await Comment.findAll({
+      where: { postId: req.params.id },
+      order: [["createdAt", "DESC"]],
+    });
     resp.status(200).json(comments);
   } catch (error) {
     resp.status(500).json({ error: error });

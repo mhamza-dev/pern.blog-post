@@ -14,7 +14,6 @@ const useListCategories = () => {
         setIsLoading(false);
       })
       .catch((error: any) => {
-        console.log(error);
         setIsLoading(false);
         setError(error.message);
       });
